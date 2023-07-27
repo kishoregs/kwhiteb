@@ -13,6 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
   canvas.addEventListener('pointerup', stopDrawing);
   canvas.addEventListener('pointerout', stopDrawing);
 
+   // Prevent touch scrolling while drawing on the canvas
+   canvas.addEventListener('touchstart', preventDefaultTouchScroll, { passive: false });
+   canvas.addEventListener('touchmove', preventDefaultTouchScroll, { passive: false });
+ 
+   function preventDefaultTouchScroll(e) {
+     e.preventDefault();
+   }
+
   function startDrawing(e) {
     isDrawing = true;
     draw(e);
