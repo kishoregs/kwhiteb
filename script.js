@@ -13,7 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.addEventListener("pointerup", stopDrawing);
   canvas.addEventListener("pointerout", stopDrawing);
 
-
+  // Prevent touch scrolling while drawing on the canvas
+  if (isSafariOnIphone()) {
+    disableSafariTouchScrolling();
+  } else {
+    disableTouchScrolling();
+  }
+  function disableSafariTouchScrolling() {
+    document.body.style.overscrollBehaviorY = "none";
+  }
 
   // Prevent touch scrolling while drawing on the canvas
   disableTouchScrolling();
