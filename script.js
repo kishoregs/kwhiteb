@@ -8,14 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
   canvas.width = window.innerWidth - 20;
   canvas.height = window.innerHeight - 120;
 
-  canvas.addEventListener('mousedown', startDrawing);
-  canvas.addEventListener('mousemove', draw);
-  canvas.addEventListener('mouseup', stopDrawing);
-  canvas.addEventListener('mouseleave', stopDrawing);
-
-  canvas.addEventListener('touchstart', startDrawing);
-  canvas.addEventListener('touchmove', draw);
-  canvas.addEventListener('touchend', stopDrawing);
+  canvas.addEventListener('pointerdown', startDrawing);
+  canvas.addEventListener('pointermove', draw);
+  canvas.addEventListener('pointerup', stopDrawing);
+  canvas.addEventListener('pointerout', stopDrawing);
 
   function startDrawing(e) {
     isDrawing = true;
@@ -30,16 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function draw(e) {
     if (!isDrawing) return;
 
-    const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-    const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-
     context.lineWidth = 2;
     context.lineCap = 'round';
     context.strokeStyle = penColor;
 
     const rect = canvas.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
     context.lineTo(x, y);
     context.stroke();
