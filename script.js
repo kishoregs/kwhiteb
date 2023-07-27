@@ -1,25 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const canvas = document.getElementById('whiteboard');
-  const context = canvas.getContext('2d');
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("whiteboard");
+  const context = canvas.getContext("2d");
   let isDrawing = false;
-  let penColor = '#000000';
+  let penColor = "#000000";
   let isColorPickerVisible = false;
 
   canvas.width = window.innerWidth - 20;
   canvas.height = window.innerHeight - 120;
 
-  canvas.addEventListener('pointerdown', startDrawing);
-  canvas.addEventListener('pointermove', draw);
-  canvas.addEventListener('pointerup', stopDrawing);
-  canvas.addEventListener('pointerout', stopDrawing);
+  canvas.addEventListener("pointerdown", startDrawing);
+  canvas.addEventListener("pointermove", draw);
+  canvas.addEventListener("pointerup", stopDrawing);
+  canvas.addEventListener("pointerout", stopDrawing);
 
-   // Prevent touch scrolling while drawing on the canvas
-   canvas.addEventListener('touchstart', preventDefaultTouchScroll, { passive: false });
-   canvas.addEventListener('touchmove', preventDefaultTouchScroll, { passive: false });
- 
-   function preventDefaultTouchScroll(e) {
-     e.preventDefault();
-   }
+
+
+  // Prevent touch scrolling while drawing on the canvas
+  disableTouchScrolling();
+
+  function disableTouchScrolling() {
+    document.body.addEventListener("touchstart", preventDefaultTouchScroll, {
+      passive: false,
+    });
+    document.body.addEventListener("touchmove", preventDefaultTouchScroll, {
+      passive: false,
+    });
+  }
+
+  function preventDefaultTouchScroll(e) {
+    e.preventDefault();
+  }
 
   function startDrawing(e) {
     isDrawing = true;
@@ -35,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isDrawing) return;
 
     context.lineWidth = 2;
-    context.lineCap = 'round';
+    context.lineCap = "round";
     context.strokeStyle = penColor;
 
     const rect = canvas.getBoundingClientRect();
@@ -48,37 +58,37 @@ document.addEventListener('DOMContentLoaded', () => {
     context.moveTo(x, y);
   }
 
-  const controlsContainer = document.querySelector('.controls');
+  const controlsContainer = document.querySelector(".controls");
 
-  controlsContainer.addEventListener('click', handleControlsClick);
+  controlsContainer.addEventListener("click", handleControlsClick);
 
   function handleControlsClick(e) {
     const target = e.target;
 
-    if (target.id === 'colorPickerIcon') {
+    if (target.id === "colorPickerIcon") {
       e.stopPropagation();
       toggleColorPicker();
-    } else if (target.id === 'clearBtn') {
+    } else if (target.id === "clearBtn") {
       clearCanvas();
     }
   }
 
   function toggleColorPicker() {
     isColorPickerVisible = !isColorPickerVisible;
-    const colorPickerContainer = document.getElementById('colorPicker');
-    colorPickerContainer.style.display = isColorPickerVisible ? 'flex' : 'none';
+    const colorPickerContainer = document.getElementById("colorPicker");
+    colorPickerContainer.style.display = isColorPickerVisible ? "flex" : "none";
     if (isColorPickerVisible) {
       const colorInput = document.getElementById("colorInput");
       colorInput.click(); // Trigger the click event on the color input
     }
   }
 
-  const colorConfirm = document.getElementById('colorInput');
-  colorConfirm.addEventListener('change', confirmColor);
+  const colorConfirm = document.getElementById("colorInput");
+  colorConfirm.addEventListener("change", confirmColor);
 
   function confirmColor() {
     penColor = colorConfirm.value;
-    const colorPickerContainer = document.getElementById('colorPicker');
+    const colorPickerContainer = document.getElementById("colorPicker");
     toggleColorPicker();
   }
 
