@@ -14,11 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.addEventListener("pointerup", stopDrawing);
   canvas.addEventListener("pointerout", stopDrawing);
 
-   // Detect touch devices, including mobile Safari
-   if ('ontouchstart' in window || navigator.msMaxTouchPoints) {
+  // Detect touch devices, including mobile Safari
+  if ("ontouchstart" in window || navigator.msMaxTouchPoints) {
     touchDevice = true;
   }
-
 
   // Prevent touch scrolling while drawing on the canvas
   // Check if the function exists before calling it
@@ -57,13 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
     context.beginPath();
   }
 
-   // Function to get the offset of an element relative to the document
-   function getElementOffset(element) {
+  // Function to get the offset of an element relative to the document
+  function getElementOffset(element) {
     const rect = element.getBoundingClientRect();
     const bodyRect = document.body.getBoundingClientRect();
     return {
       left: rect.left - bodyRect.left,
-      top: rect.top - bodyRect.top
+      top: rect.top - bodyRect.top,
     };
   }
 
@@ -79,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvasOffset = getElementOffset(canvas);
     let x, y;
 
-    if (e.type === 'touchmove') {
+    if (e.type === "touchmove") {
       // For touch events, use the touch's coordinates relative to the canvas
       x = e.touches[0].clientX - canvasOffset.left;
       y = e.touches[0].clientY - canvasOffset.top;
@@ -101,15 +100,19 @@ document.addEventListener("DOMContentLoaded", () => {
   controlsContainer.addEventListener("click", handleControlsClick);
 
   if (touchDevice) {
-   
     // Touch event handling for clear button
-    const clearBtn = document.getElementById('clearBtn');
-    clearBtn.addEventListener('touchstart', clearCanvas);
-  } 
+    const clearBtn = document.getElementById("clearBtn");
+    clearBtn.addEventListener("touchstart", clearCanvas);
 
+    // Touch event handling for color picker toggle
+    const colorPickerIcon = document.getElementById("colorPickerIcon");
+    colorPickerIcon.addEventListener("touchstart", handleColorPickerTouch);
+  }
 
-
- 
+  function handleColorPickerTouch(e) {
+    e.stopPropagation();
+    toggleColorPicker();
+  }
 
   function handleControlsClick(e) {
     const target = e.target;
