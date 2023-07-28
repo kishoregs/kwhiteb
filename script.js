@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let isDrawing = false;
   let penColor = "#000000";
   let isColorPickerVisible = false;
+  let touchDevice = false;
 
   canvas.width = window.innerWidth - 20;
   canvas.height = window.innerHeight - 120;
@@ -12,6 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.addEventListener("pointermove", draw);
   canvas.addEventListener("pointerup", stopDrawing);
   canvas.addEventListener("pointerout", stopDrawing);
+
+   // Detect touch devices, including mobile Safari
+   if ('ontouchstart' in window || navigator.msMaxTouchPoints) {
+    touchDevice = true;
+  }
+
 
   // Prevent touch scrolling while drawing on the canvas
   // Check if the function exists before calling it
@@ -50,6 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
     context.beginPath();
   }
 
+   // Function to get the offset of an element relative to the document
+   function getElementOffset(element) {
+    const rect = element.getBoundingClientRect();
+    const bodyRect = document.body.getBoundingClientRect();
+    return {
+      left: rect.left - bodyRect.left,
+      top: rect.top - bodyRect.top
+    };
+  }
+
   // ...
   function draw(e) {
     if (!isDrawing) return;
@@ -59,12 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
     context.strokeStyle = penColor;
 
     const rect = canvas.getBoundingClientRect();
+    const canvasOffset = getElementOffset(canvas);
     let x, y;
 
-    if (e.type === "touchmove") {
-      // For touch events, use the touch's coordinates
-      x = e.touches[0].clientX - rect.left;
-      y = e.touches[0].clientY - rect.top;
+    if (e.type === 'touchmove') {
+      // For touch events, use the touch's coordinates relative to the canvas
+      x = e.touches[0].clientX - canvasOffset.left;
+      y = e.touches[0].clientY - canvasOffset.top;
     } else {
       // For mouse events, use the mouse's coordinates
       x = e.clientX - rect.left;
@@ -82,20 +100,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   controlsContainer.addEventListener("click", handleControlsClick);
 
-  // Replace click event with touchstart for touch devices
+  if (touchDevice) {
+   
+    // Touch event handling for clear button
+    const clearBtn = document.getElementById('clearBtn');
+    clearBtn.addEventListener('touchstart', clearCanvas);
+  } 
 
-  controlsContainer.addEventListener("touchstart", handleControlsTouch);
 
-  function handleControlsTouch(e) {
-    const target = e.target;
 
-    if (target.id === "colorPickerIcon") {
-      e.stopPropagation();
-      toggleColorPicker();
-    } else if (target.id === "clearBtn") {
-      clearCanvas();
-    }
-  }
+ 
 
   function handleControlsClick(e) {
     const target = e.target;
