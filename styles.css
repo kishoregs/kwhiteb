@@ -16,13 +16,22 @@ body {
   overflow: hidden;
 }
 
+/* Whiteboard styles */
+#whiteboard {
+  background-color: #ffffff;
+  border: 1px solid #d3d3d3;
+  width: 100%;
+  height: calc(100% - 60px);
+  display: block;
+}
+
 .controls {
   position: absolute;
   top: 10px;
   right: 10px;
   display: flex;
   gap: 20px;
-  align-items: center; /* Align items vertically in the controls container */
+  align-items: center;
 }
 
 .controls .icon {
@@ -30,8 +39,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
@@ -39,18 +48,12 @@ body {
 }
 
 .controls .icon i {
-  font-size: 20px;
+  font-size: 30px;
   color: #333;
 }
 
 .controls .icon:hover {
   background-color: #555;
-}
-
-#whiteboard {
-  width: 100%;
-  height: calc(100% - 60px);
-  display: block;
 }
 
 .controls .color-picker-container {
@@ -72,14 +75,14 @@ body {
 @media (max-width: 600px) {
   .controls {
     flex-direction: column;
-    align-items: flex-end; /* Align items to the right in a column */
+    align-items: flex-end;
   }
 
   .controls .icon {
-    margin-top: 10px; /* Add space between icons in the column */
+    margin-top: 10px;
   }
 
   #whiteboard {
-    height: calc(100% - 120px); /* Adjust canvas height for smaller screens */
+    height: calc(100% - 120px);
   }
 }
