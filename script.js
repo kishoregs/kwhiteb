@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.addEventListener("pointerout", stopDrawing);
 
   // Prevent touch scrolling while drawing on the canvas
-  if (isSafariOnIphone()) {
+  // Check if the function exists before calling it
+  if (typeof isSafariOnIphone === "function" && isSafariOnIphone()) {
     disableSafariTouchScrolling();
   } else {
     disableTouchScrolling();

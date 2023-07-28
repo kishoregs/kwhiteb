@@ -21,6 +21,7 @@ body {
   top: 10px;
   right: 10px;
   display: flex;
+  gap: 20px;
   align-items: center; /* Align items vertically in the controls container */
 }
 
@@ -63,4 +64,22 @@ body {
   width: 40px;
   height: 40px;
   opacity: 0;
+}
+
+/* Media queries for responsive layout */
+
+/* For smaller screens */
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+    align-items: flex-end; /* Align items to the right in a column */
+  }
+
+  .controls .icon {
+    margin-top: 10px; /* Add space between icons in the column */
+  }
+
+  #whiteboard {
+    height: calc(100% - 120px); /* Adjust canvas height for smaller screens */
+  }
 }
