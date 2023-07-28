@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     context.beginPath();
   }
 
+  // ...
   function draw(e) {
     if (!isDrawing) return;
 
@@ -58,18 +59,43 @@ document.addEventListener("DOMContentLoaded", () => {
     context.strokeStyle = penColor;
 
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    let x, y;
+
+    if (e.type === "touchmove") {
+      // For touch events, use the touch's coordinates
+      x = e.touches[0].clientX - rect.left;
+      y = e.touches[0].clientY - rect.top;
+    } else {
+      // For mouse events, use the mouse's coordinates
+      x = e.clientX - rect.left;
+      y = e.clientY - rect.top;
+    }
 
     context.lineTo(x, y);
     context.stroke();
     context.beginPath();
     context.moveTo(x, y);
   }
+  // ...
 
   const controlsContainer = document.querySelector(".controls");
 
   controlsContainer.addEventListener("click", handleControlsClick);
+
+  // Replace click event with touchstart for touch devices
+
+  controlsContainer.addEventListener("touchstart", handleControlsTouch);
+
+  function handleControlsTouch(e) {
+    const target = e.target;
+
+    if (target.id === "colorPickerIcon") {
+      e.stopPropagation();
+      toggleColorPicker();
+    } else if (target.id === "clearBtn") {
+      clearCanvas();
+    }
+  }
 
   function handleControlsClick(e) {
     const target = e.target;
