@@ -1,0 +1,20 @@
+{
+  "CaseStatusResponse": {
+    "receiptNumber": "IOE8322824052",
+    "isValid": true,
+    "detailsEng": {
+      "formNum": "I-129",
+      "formTitle": "Petition for a Nonimmigrant Worker",
+      "actionCodeText": "Premium Processing Clock Was Stopped For My Case",
+      "actionCodeDesc": "On August 8, 2023, we stopped the processing of your premium-processing case, Receipt Number IOE8322824052, and sent you a notice explaining why we took this action.  This notice describes what you need to do to resume processing of your case.  Please follow the instructions in the notice.  You must respond to the notice within the time it specifies.  Your premium-processing receipt notice contains contact information for direct inquiries on your case.  If you move, contact the premium-processing unit directly to update your address.",
+      "empty": false
+    },
+    "detailsEs": {
+      "formNum": "I-129",
+      "formTitle": "Petición de Trabajador No Inmigrante",
+      "actionCodeText": "Periodo De Trámite Acelerado Para Caso Se Detuvo",
+      "actionCodeDesc": "El 08 de Agosto de 2023, detuvimos el trámite acelerado de su caso para su Número de Recibo IOE8322824052, y le enviamos una notificación en la que explicamos las razones específicas de esta medida.  En este aviso se describen las medidas que debe tomar para reanudar la tramitación de su caso.  Por favor, siga las instrucciones que aparecen en este aviso.  Deberá responder a este aviso dentro del plazo estipulado.  Su acuse de recibo de procesamiento premium contiene información de contacto para consultas directas sobre su caso.  Si cambia de domicilio, comuníquese directamente con la unidad de trámites acelerados para actualizar su dirección.",
+      "empty": false
+    }
+  }
+}
